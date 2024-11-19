@@ -4,13 +4,16 @@ import { Table, Tag } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
+const handleChange = (value) => {
+  console.log(`selected ${value}`);
+};
+
 export default function Newest_flight_table({
   onButtonClick,
   data,
   lastFetchTime,
 }) {
   const fontSize = "text-base";
-
   const columns = [
     {
       title: "班機號碼",
@@ -77,8 +80,8 @@ export default function Newest_flight_table({
     },
   ];
 
-  const parsedData = JSON.parse(JSON.stringify(data)) || [];
-  // console.log(parsedData[0]);
+  const parsedData = JSON.parse(JSON.stringify(static_data)) || [];
+  console.log(parsedData[0].FIDSDeparture);
   // console.log(parsedData[0].FIDSDeparture);
   let depart;
   // console.log(parsedData[0].FIDSDeparture);
@@ -114,30 +117,32 @@ export default function Newest_flight_table({
   }
 
   return (
-    <Table
-      columns={columns}
-      dataSource={depart}
-      bordered
-      title={() => {
-        return (
-          <>
-            {/* <div className="text-4xl mb-[10px] font-bold">最新航班資訊</div> */}
-            <div className="mb-[5px]">
-              最後更新時間: {new Date(lastFetchTime).toLocaleString()}
-            </div>
-            <button
-              className="w-[30px] h-[30px] border relative rounded-md bg-sky-400 active:bg-sky-600 active:outline active:outline-[1px] active:border-indigo-900"
-              onClick={onButtonClick}>
-              <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-                <FontAwesomeIcon
-                  icon={faRotateRight}
-                  className="text-lg text-white active:text-[16px]"></FontAwesomeIcon>
+    <>
+      <Table
+        columns={columns}
+        dataSource={depart}
+        bordered
+        title={() => {
+          return (
+            <>
+              {/* <div className="text-4xl mb-[10px] font-bold">最新航班資訊</div> */}
+              <div className="mb-[5px]">
+                最後更新時間: {new Date(lastFetchTime).toLocaleString()}
               </div>
-            </button>
-          </>
-        );
-      }}
-      // footer={() => "Footer"}
-    />
+              <button
+                className="w-[30px] h-[30px] border relative rounded-md bg-sky-400 active:bg-sky-600 active:outline active:outline-[1px] active:border-indigo-900"
+                onClick={onButtonClick}>
+                <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+                  <FontAwesomeIcon
+                    icon={faRotateRight}
+                    className="text-lg text-white active:text-[16px]"></FontAwesomeIcon>
+                </div>
+              </button>
+            </>
+          );
+        }}
+        // footer={() => "Footer"}
+      />
+    </>
   );
 }
